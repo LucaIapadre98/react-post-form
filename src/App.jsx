@@ -6,7 +6,7 @@ const formInitial = {
   author:"",
   title:"",
   body:"",
-  public:"true"
+  public:"true",
 }
 const apiUrl ="https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts";
 
