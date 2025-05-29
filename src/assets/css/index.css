@@ -3,4 +3,6 @@
     padding: 20px 5px;
     border: 1px solid hsl(0, 1%, 35%);
     border-radius: 10px;
+    row-gap: .5rem;
 }
+
