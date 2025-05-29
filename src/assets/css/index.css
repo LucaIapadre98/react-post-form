@@ -9,4 +9,8 @@
 .card{
     max-width: 20%;
 }
+.col-3 .form-check{
+    display: flex;
+    flex-direction: row;
+}
 

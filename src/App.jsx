@@ -1,16 +1,19 @@
-import { useState } from "react"
+import { useState } from "react";
+import axios from "axios";
+
 // CREATO L'ARRAY CHE PARTE DA STRINGHE VUOTE //
 const formInitial = {
   author:"",
   title:"",
   body:"",
-  postPublic:"true",
-  postDraft:"false"
+  public:""
 }
+const apiUrl ="https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts";
 
 export  default function App(){
   const [formData, setFormData] = useState(formInitial);
   const [cardData, setCardData] = useState();
+
 
   // FUNZIONE CHE CAMBIA INPUT //
   const handleChangeInput = (e) =>{
@@ -19,15 +22,23 @@ export  default function App(){
   // FUNZIONE CHE GESTISCE IL SUBMIT E LA CARD// 
   const handleSubmitForm = (e) =>{
     e.preventDefault()
-    setCardData({...formData})
+    // EFFETTUO LA CHIAMATA AXIOS //
+    axios.post(apiUrl, formData)
+    .then((res) => {
+      console.log(res);
+      setCardData({...formData})
+    })
+    .catch((err)=>{
+      alert(console.error("Errore nella risposta!"))
+    })
   }
   return (
     <>
       <div className="container">
         <h1>My React</h1>
         <form className="row" onSubmit={handleSubmitForm}>
-          <div className="col-4">
-            <label htmlFor="">Title</label>
+          <div className="col-3">
+            <label>Title</label>
             <input className="form-control" 
             type="text" 
             name="title" 
@@ -35,8 +46,8 @@ export  default function App(){
             value={formData.title} 
             id="name"></input>
           </div>
-          <div className="col-4">
-            <label htmlFor="">Author</label>
+          <div className="col-3">
+            <label>Author</label>
             <input className="form-control" 
             type="text" 
             name="author" 
@@ -44,8 +55,8 @@ export  default function App(){
             value={formData.author} 
             id="title"></input>
           </div>
-          <div className="col-4">
-            <label htmlFor="">Body</label>
+          <div className="col-3">
+            <label >Body</label>
             <input className="form-control" 
             type="text" 
             name="body" 
@@ -53,11 +64,34 @@ export  default function App(){
             value={formData.body} 
             id="body"></input>
           </div>
+          <div className="col-3">
+            <div className="form-check">
+              <input className="form-check" 
+              type="checkbox" 
+              value={formData.public} 
+              onChange={handleChangeInput} 
+              id="" 
+              />
+              <label>
+                Pubblico
+              </label>
+            </div>
+            <div className="form-check">
+              <input className="form-check" 
+              type="checkbox" 
+              value={formData.public} 
+              onChange={handleChangeInput} 
+              id="" 
+              />
+              <label>
+                Bozza
+              </label>
+            </div>
+          </div>
           <div className="col-12">
             <button className="btn btn-primary">Invio</button>
           </div>
         </form>
-
         {cardData && ( 
           <div className="card">
             <div className="card-header">
